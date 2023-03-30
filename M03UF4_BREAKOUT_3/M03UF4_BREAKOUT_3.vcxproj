@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="GameManajer.h" />
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Wall.h" />
