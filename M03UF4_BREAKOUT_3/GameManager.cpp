@@ -52,7 +52,7 @@ void GameManager::GamePlay() {
 	std::vector<Wall> walls;
 	std::vector<Brick> bricks;
 	
-	InitGameplay(15, 25, playerPad, ball, walls, bricks);
+	InitGameplay(15, 25, &playerPad, &ball, walls, bricks);
 
 	while (gameplay) {
 		 
@@ -63,12 +63,37 @@ void GameManager::GamePlay() {
 	}
 }
 
-void GameManager::InitGameplay(int width, int height, Pad* p, Ball* b, std::vector<Wall>& w, std::vector<Brick>& bricks) {
-	p = new Pad(Vector2(width/ 2, height/2 + height /4), 3);
+void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::vector<Wall>& w, std::vector<Brick>& bricks) {
+	//PAD
+	*p = new Pad(Vector2(width/ 2, height/2 + height /4), 3);
+	//WALLS
+	//first corner(top left)
+	w.push_back(Wall(WallType::CORNER, Vector2(0, 0)));
+	for (int i = 1; i < width - 1; i++) 
+		w.push_back(Wall(WallType::HORIZONTAL, Vector2(i,0)));
+	w.push_back(Wall(WallType::CORNER, Vector2(width - 1, 0)));
 
+	for (int i = 0; i < height - 2; i++) {
+		for (int j = 0; j < 2; j++) {
+			w.push_back(Wall(WallType::VERTICAL, Vector2(j *(width - 1), i + 1)));
+		}
+	}
+
+	w.push_back(Wall(WallType::CORNER, Vector2(0, height - 1)));
+	for (int i = 1; i < width - 1; i++)
+		w.push_back(Wall(WallType::HORIZONTAL, Vector2(i, height - 1)));
+	w.push_back(Wall(WallType::CORNER, Vector2(width - 1, height - 1)));
+
+
+
+	//BRICKS
+
+
+	//BALL
+	*b = new Ball();
 }
 
 
 void GameManager::Highscore() {
-	std::cout << ">Highscore" << std::endl;
+	std::cout << "Highscore" << std::endl;
 }
