@@ -24,7 +24,9 @@ void GameManager::Menu() {
 }
 
 void GameManager::GamePlay() {
+	int sleepTime = 16;
 	std::cout << "GP" << std::endl;
+	Sleep(sleepTime);
 }
 void GameManager::Highscore() {
 	std::cout << ">Highscore" << std::endl;
