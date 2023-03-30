@@ -30,7 +30,7 @@
     <ClInclude Include="Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameManajer.h">
+    <ClInclude Include="GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
