@@ -45,9 +45,30 @@ void GameManager::Menu() {
 
 void GameManager::GamePlay() {
 	int sleepTime = 16;
-	std::cout << "GP" << std::endl;
-	Sleep(sleepTime);
+	bool gameplay = true;
+	
+	Pad* playerPad = nullptr;
+	Ball* ball = nullptr;
+	std::vector<Wall> walls;
+	std::vector<Brick> bricks;
+	
+	InitGameplay(15, 25, playerPad, ball, walls, bricks);
+
+	while (gameplay) {
+		 
+		playerPad->Render();
+
+		Sleep(sleepTime);
+		system("cls");
+	}
 }
+
+void GameManager::InitGameplay(int width, int height, Pad* p, Ball* b, std::vector<Wall>& w, std::vector<Brick>& bricks) {
+	p = new Pad(Vector2(width/ 2, height/2 + height /4), 3);
+
+}
+
+
 void GameManager::Highscore() {
 	std::cout << ">Highscore" << std::endl;
 }
