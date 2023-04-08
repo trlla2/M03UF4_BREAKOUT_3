@@ -84,8 +84,6 @@ void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::ve
 		w.push_back(Wall(WallType::HORIZONTAL, Vector2(i, height - 1)));
 	w.push_back(Wall(WallType::CORNER, Vector2(width - 1, height - 1)));
 
-
-
 	//BRICKS
 
 
