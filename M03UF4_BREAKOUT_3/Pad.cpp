@@ -5,7 +5,7 @@
 
 
 void Pad::Render() {
-	//Moure el cursor a la posició
+	//Moure el cursor a la posicio
 	ConsoleXY(position.x, position.y);
 
 	//Canviar el color
