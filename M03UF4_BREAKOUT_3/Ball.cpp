@@ -22,6 +22,11 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick> bricks, Pad* pads)
 			}
 		}
 	}
+	for (auto it = bricks.begin(); it != walls.end(); it++) {
+		if (it->GetPosition() == position && it->GetHealth() != 0) {
+				direcction.x *= -1;
+		}
+	}
 	position = position + direcction;
 
 }
