@@ -56,7 +56,7 @@ void GameManager::GamePlay() {
 
 	while (gameplay) {
 		 
-		ball->Update(walls, bricks, playerPad);
+		//ball->Update(walls, bricks, playerPad);
 		
 		playerPad->Render();
 
