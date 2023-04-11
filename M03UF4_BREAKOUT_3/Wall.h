@@ -10,6 +10,7 @@ class Wall {
 private:
 	Vector2 position;
 	WallType type;
+	int width;
 
 public:
 	Wall(WallType t, Vector2 p)
@@ -17,9 +18,8 @@ public:
 	Vector2 GetPosition() { return position; }
 	WallType GetType() { return type; }
 	void Render();
+	int GetWidth() { return width; }
+
 
 };
-
-
-
 

@@ -1,19 +1,22 @@
 #pragma once
 #include <vector>
-
 #include"Brick.h"
 #include"Pad.h"
 #include"Wall.h"
-
 class Ball {
 private:
 	int damage;
-	Vector2 direcction;
+	Vector2 direction;
 	Vector2 position;
 
 public:
 	Ball(Vector2 p, Vector2 dir, int dmg)
-		:position(p), direcction(dir), damage(dmg) {}
+		:position(p), direction(dir), damage(dmg) {}
+
+	void SetDirection(Vector2 dir) {
+		direction = dir;
+	}
+
 	void Bounce(Vector2 normal);
 	void Update(std::vector<Wall> walls, std::vector<Brick> &bricks, Pad* pads);
 	int GetDamage() { return damage; }
@@ -23,7 +26,10 @@ public:
 		ConsoleXY(position.x, position.y);
 		std::cout << "@";
 	}
-	
 
 
 };
+
+	
+
+
