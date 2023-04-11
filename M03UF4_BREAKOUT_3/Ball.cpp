@@ -5,7 +5,7 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick> &bricks, Pad* pads
 	Vector2 targetPos = position + direcction;
 
 	for (auto it = walls.begin(); it != walls.end(); it++) {
-		if (it->GetPosition() == position) {
+		if (it->GetPosition() == targetPos) {
 			switch (it->GetType())
 			{
 			case VERTICAL:
