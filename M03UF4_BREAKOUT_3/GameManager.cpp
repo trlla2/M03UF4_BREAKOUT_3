@@ -46,28 +46,35 @@ void GameManager::Menu() {
 void GameManager::GamePlay() {
 	int sleepTime = 100;
 	bool gameplay = true;
-	
+
 	Pad* playerPad = nullptr;
 	Ball* ball = nullptr;
 	std::vector<Wall> walls;
 	std::vector<Brick> bricks;
-	
+
 	InitGameplay(25, 15, &playerPad, &ball, walls, bricks);
 
 	while (gameplay) {
-		 
-		ball->Update(walls, bricks, playerPad);
 		
+		bool leftPressed = GetAsyncKeyState(VK_LEFT) != 0;
+		bool rightPressed = GetAsyncKeyState(VK_RIGHT) != 0;
+
+		if (leftPressed && playerPad->GetPosition().x > 0) {
+			playerPad->SetPosition(Vector2(playerPad->GetPosition().x - 1, playerPad->GetPosition().y));
+		}
+		
+		if (rightPressed && playerPad->GetPosition().x + playerPad->GetWidth() < 25) {
+			playerPad->SetPosition(Vector2(playerPad->GetPosition().x + 1, playerPad->GetPosition().y));
+		}
+
+		ball->Update(walls, bricks, playerPad);
 		playerPad->Render();
 
-		for (std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++)
-		{
+		for (std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++) {
 			it->Render();
 		}
 
-
-		for (std::vector<Brick>::iterator it = bricks.begin(); it != bricks.end(); it++)
-		{
+		for (std::vector<Brick>::iterator it = bricks.begin(); it != bricks.end(); it++) {
 			it->Render();
 		}
 
@@ -78,9 +85,11 @@ void GameManager::GamePlay() {
 	}
 }
 
+
 void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::vector<Wall>& w, std::vector<Brick>& brick) {
 	//PAD
 	*p = new Pad(Vector2(width / 2, height / 2 + height / 4), 3);
+
 	//WALLS
 	//first corner(top left)
 	w.push_back(Wall(WallType::CORNER, Vector2(0, 0)));

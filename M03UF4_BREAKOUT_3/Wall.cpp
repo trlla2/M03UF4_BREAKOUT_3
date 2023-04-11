@@ -18,4 +18,5 @@ void Wall::Render()
 	default:
 		break;
 	}
+
 }
