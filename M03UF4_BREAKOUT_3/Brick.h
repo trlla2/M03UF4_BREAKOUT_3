@@ -16,8 +16,10 @@ public:
 	int GetHealth() { return health; }
 	void TakeDamage(int dmg) { health -= dmg; }
 	void Render() {
-		ConsoleXY(position.x, position.y);
-		std::cout << "#";
+		if (health != 0) {
+			ConsoleXY(position.x, position.y);
+			std::cout << "#";
+		}
 	}
 
 };
