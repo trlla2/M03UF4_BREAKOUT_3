@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2.h"
+#include "ConsoleControl.h"
 
 class Brick {
 
@@ -8,11 +9,12 @@ private:
 	int health;
 
 public:
-	Brick(Vector2 p, int h);
-	Vector2 GetPosition();
-	void SetPosition(Vector2);
-	int GetHealth();
-	void TakeDamage(int amount);
+	Brick(Vector2 p, int h)
+		:position(p), health(h) {}
+	Vector2 GetPosition() { return position; }
+	void SetPosition(Vector2 p) { position = p; }
+	int GetHealth() { return health; }
+	void TakeDamage(int dmg) { health -= dmg; }
 	void Render();
 
 };

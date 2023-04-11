@@ -44,7 +44,7 @@ void GameManager::Menu() {
 }
 
 void GameManager::GamePlay() {
-	int sleepTime = 16;
+	int sleepTime = 100;
 	bool gameplay = true;
 	
 	Pad* playerPad = nullptr;
@@ -52,7 +52,7 @@ void GameManager::GamePlay() {
 	std::vector<Wall> walls;
 	std::vector<Brick> bricks;
 	
-	InitGameplay(15, 25, &playerPad, &ball, walls, bricks);
+	InitGameplay(25, 15, &playerPad, &ball, walls, bricks);
 
 	while (gameplay) {
 		 
@@ -63,24 +63,30 @@ void GameManager::GamePlay() {
 			it->Render();
 		}
 
+
+		for (std::vector<Brick>::iterator it = bricks.begin(); it != bricks.end(); it++)
+		{
+			it->Render();
+		}
+
 		Sleep(sleepTime);
 		system("cls");
 	}
 }
 
-void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::vector<Wall>& w, std::vector<Brick>& bricks) {
+void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::vector<Wall>& w, std::vector<Brick>& brick) {
 	//PAD
-	*p = new Pad(Vector2(width/ 2, height/2 + height /4), 3);
+	*p = new Pad(Vector2(width / 2, height / 2 + height / 4), 3);
 	//WALLS
 	//first corner(top left)
 	w.push_back(Wall(WallType::CORNER, Vector2(0, 0)));
-	for (int i = 1; i < width - 1; i++) 
-		w.push_back(Wall(WallType::HORIZONTAL, Vector2(i,0)));
+	for (int i = 1; i < width - 1; i++)
+		w.push_back(Wall(WallType::HORIZONTAL, Vector2(i, 0)));
 	w.push_back(Wall(WallType::CORNER, Vector2(width - 1, 0)));
 
 	for (int i = 0; i < height - 2; i++) {
 		for (int j = 0; j < 2; j++) {
-			w.push_back(Wall(WallType::VERTICAL, Vector2(j *(width - 1), i + 1)));
+			w.push_back(Wall(WallType::VERTICAL, Vector2(j * (width - 1), i + 1)));
 		}
 	}
 
@@ -90,12 +96,15 @@ void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::ve
 	w.push_back(Wall(WallType::CORNER, Vector2(width - 1, height - 1)));
 
 	//BRICKS
+	for (int i = 1; i <= 3; i++) { //FILES
+		for (int j = 1; j < width - 1; j++) {
+			brick.push_back(Brick(Vector2(j, i), 1));
+		}
 
-
-	//BALL
-	//*b = new Ball();
+		//BALL
+		//*b = new Ball();
+	}
 }
-
 
 void GameManager::Highscore() {
 	std::cout << "Highscore" << std::endl;
