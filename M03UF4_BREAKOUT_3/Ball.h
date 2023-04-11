@@ -15,7 +15,7 @@ public:
 	Ball(Vector2 p, Vector2 dir, int dmg)
 		:position(p), direcction(dir), damage(dmg) {}
 	void Bounce(Vector2 normal);
-	void Update(std::vector<Wall> walls, std::vector<Brick> bricks, Pad* pads);
+	void Update(std::vector<Wall> walls, std::vector<Brick> &bricks, Pad* pads);
 	int GetDamage() { return damage; }
 	Vector2 GetDirection();
 	Vector2 GetPosition();

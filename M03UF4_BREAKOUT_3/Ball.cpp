@@ -1,6 +1,6 @@
 #include "Ball.h"
 
-void Ball::Update(std::vector<Wall> walls, std::vector<Brick> bricks, Pad* pads) {
+void Ball::Update(std::vector<Wall> walls, std::vector<Brick> &bricks, Pad* pads) {
 	
 	Vector2 targetPos = position + direcction;
 
@@ -24,9 +24,9 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick> bricks, Pad* pads)
 	}
 	for (auto it = bricks.begin(); it != bricks.end(); it++) {
 		if (it->GetPosition() == targetPos && it->GetHealth() != 0) {
-			
-			direcction.y *= -1;
 			it->TakeDamage(GetDamage());
+
+			direcction.y *= -1;
 			
 		}
 	}
