@@ -15,6 +15,9 @@ public:
 	void SetPosition(Vector2 p) { position = p; }
 	int GetHealth() { return health; }
 	void TakeDamage(int dmg) { health -= dmg; }
-	void Render();
+	void Render() {
+		ConsoleXY(position.x, position.y);
+		std::cout << "#";
+	}
 
 };

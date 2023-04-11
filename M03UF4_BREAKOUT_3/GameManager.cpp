@@ -56,6 +56,8 @@ void GameManager::GamePlay() {
 
 	while (gameplay) {
 		 
+		ball->Update(walls, bricks, playerPad);
+		
 		playerPad->Render();
 
 		for (std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++)
@@ -68,6 +70,8 @@ void GameManager::GamePlay() {
 		{
 			it->Render();
 		}
+
+		ball->Render();
 
 		Sleep(sleepTime);
 		system("cls");
@@ -102,7 +106,7 @@ void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::ve
 		}
 
 		//BALL
-		//*b = new Ball();
+		*b = new Ball(Vector2(width / 2, height/2), Vector2(0,1),1);
 	}
 }
 

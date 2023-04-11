@@ -137,7 +137,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Brick.cpp" />
     <ClCompile Include="ConsoleControl.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
