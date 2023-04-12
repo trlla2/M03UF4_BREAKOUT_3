@@ -24,4 +24,5 @@ private:
 	void InitGameplay(int width, int height, Pad** p, Ball** b, std::vector<Wall>& w, std::vector<Brick>& bricks);
 	void Highscore();
 	void Credits();
+
 };	

@@ -43,31 +43,37 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad)
         case 0:
             direction.x = -1;
             direction.y = -1;
-            break; // sección izquierda
+            break; 
         case 1:
             direction.x = 0;
             direction.y = -1;
-            break; // sección media
+            break; 
         case 2:
             direction.x = 1;
             direction.y = -1;
-            break; // sección derecha
+            break; 
         default:
             direction.x = 0;
             direction.y = -1;
-            break; // sección por defecto (en caso de error)
+            break;
         }
     }
 
-    // verificar si la pelota ha llegado a la pared de abajo
     if (targetPos.y >= walls.back().GetPosition().y) {
-        // destruir la pelota
+        // Eliminar la pelota si se sale de la pantalla
         delete this;
-
     }
     else {
         position = position + direction;
     }
 }
+
+void Ball::Reset(Vector2 position, Vector2 direction, int damage) {
+    this->position = position;
+    this->direction = direction;
+    this->damage = damage;
+}
+
+
 
 

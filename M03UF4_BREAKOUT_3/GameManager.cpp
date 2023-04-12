@@ -139,8 +139,10 @@ void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::ve
 		}
 
 		//BALL
-		*b = new Ball(Vector2(width / 2, height/2), Vector2(0,1),1);
+		*b = new Ball(Vector2(width / 2, height / 2), Vector2(0, 1), 1);
+
 	}
+	
 }
 
 void GameManager::Highscore() {
@@ -167,6 +169,7 @@ void GameManager::Highscore() {
 	currentScene = Scene::MENU;
 
 }
+
 void GameManager::Credits() {
 	bool press1;
 	bool keyPressed = false;

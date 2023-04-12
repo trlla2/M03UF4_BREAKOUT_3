@@ -6,31 +6,29 @@
 #include "Vector2.h"
 class Ball {
 private:
-	int damage;
-	Vector2 direction;
-	Vector2 position;
+    int damage;
+    Vector2 direction;
+    Vector2 position;
 
 public:
-	Ball(Vector2 p, Vector2 dir, int dmg)
-		:position(p), direction(dir), damage(dmg) {}
+    Ball(Vector2 p, Vector2 dir, int dmg)
+        :position(p), direction(dir), damage(dmg) {}
 
-	void SetDirection(Vector2 dir) {
-		direction = dir;
-	}
+    void SetDirection(Vector2 dir) {
+        direction = dir;
+    }
 
-	void Bounce(Pad* pad);
-	void Update(std::vector<Wall> walls, std::vector<Brick> &bricks, Pad* pads);
-	int GetDamage() { return damage; }
-	Vector2 GetDirection();
-	Vector2 GetPosition();
-	void Render() {
-		ConsoleXY(position.x, position.y);
-		std::cout << "@";
-	}
-
-
+    void Bounce(Pad* pad);
+    void Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pads);
+    int GetDamage() { return damage; }
+    Vector2 GetDirection();
+    Vector2 GetPosition();
+    void Render() {
+        ConsoleXY(position.x, position.y);
+        std::cout << "@";
+    }
+    void Reset(Vector2 position, Vector2 direction, int damage); 
 };
 
-	
 
 
