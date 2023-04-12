@@ -59,8 +59,15 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad)
         }
     }
 
-    position = position + direction;
-}
+    // verificar si la pelota ha llegado a la pared de abajo
+    if (targetPos.y >= walls.back().GetPosition().y) {
+        // destruir la pelota
+        delete this;
 
+    }
+    else {
+        position = position + direction;
+    }
+}
 
 
