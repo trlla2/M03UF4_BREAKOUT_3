@@ -38,8 +38,8 @@ void GameManager::Menu() {
 		std::cout << "\n\n";
 		std::cout << "Main Menu \n\n";
 		std::cout << "Press 1 to play" << std::endl;
-		std::cout << "Press 2 to play" << std::endl;
-		std::cout << "Press 3 to play" << std::endl;
+		std::cout << "Press 2 to Ranking" << std::endl;
+		std::cout << "Press 3 to Credits" << std::endl;
 		std::cout << "Press 0 to exit" << std::endl;
 		
 		 press1 = GetAsyncKeyState('1') != 0;
