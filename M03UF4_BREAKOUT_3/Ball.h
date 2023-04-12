@@ -3,6 +3,7 @@
 #include"Brick.h"
 #include"Pad.h"
 #include"Wall.h"
+#include "Vector2.h"
 class Ball {
 private:
 	int damage;
@@ -17,7 +18,7 @@ public:
 		direction = dir;
 	}
 
-	void Bounce(Vector2 normal);
+	void Bounce(Pad* pad);
 	void Update(std::vector<Wall> walls, std::vector<Brick> &bricks, Pad* pads);
 	int GetDamage() { return damage; }
 	Vector2 GetDirection();
