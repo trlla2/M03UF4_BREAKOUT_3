@@ -33,8 +33,34 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad)
     Vector2 padPos = pad->GetPosition();
     int padWidth = pad->GetWidth();
     if (targetPos.y == padPos.y - 1 && targetPos.x >= padPos.x && targetPos.x <= padPos.x + padWidth - 1) {
-        direction.y *= -1;
+        // calcular la sección en la que colisionó la pelota
+        float sectionWidth = (float)padWidth / 3.0f;
+        float ballX = targetPos.x - padPos.x;
+        float section = std::floor(ballX / sectionWidth);
+
+        // establecer la nueva dirección basada en la sección de colisión
+        switch ((int)section) {
+        case 0:
+            direction.x = -1;
+            direction.y = -1;
+            break; // sección izquierda
+        case 1:
+            direction.x = 0;
+            direction.y = -1;
+            break; // sección media
+        case 2:
+            direction.x = 1;
+            direction.y = -1;
+            break; // sección derecha
+        default:
+            direction.x = 0;
+            direction.y = -1;
+            break; // sección por defecto (en caso de error)
+        }
     }
 
     position = position + direction;
 }
+
+
+
