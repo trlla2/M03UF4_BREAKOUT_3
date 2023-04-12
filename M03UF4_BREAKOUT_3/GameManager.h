@@ -9,7 +9,7 @@
 
 class GameManager {
 public:
-	enum Scene{MENU, GAMEPLAY, HIGHSCORE};
+	enum Scene{MENU, GAMEPLAY, HIGHSCORE, CREDITS};
 	Scene currentScene;
 	bool isPlaying;
 
@@ -23,4 +23,5 @@ private:
 	void GamePlay();
 	void InitGameplay(int width, int height, Pad** p, Ball** b, std::vector<Wall>& w, std::vector<Brick>& bricks);
 	void Highscore();
+	void Credits();
 };	

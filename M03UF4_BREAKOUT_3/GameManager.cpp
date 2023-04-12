@@ -12,6 +12,9 @@ void GameManager::Update() {
 	case GameManager::HIGHSCORE:
 		Highscore();
 		break;
+	case GameManager::CREDITS:
+		Credits();
+		break;
 	default:
 		break;
 	}
@@ -57,9 +60,9 @@ void GameManager::Menu() {
 	if (press1)
 		currentScene = Scene::GAMEPLAY;
 	else if (press2)
-		std::cout << "Rannking Scene here";
+		currentScene = Scene::HIGHSCORE;
 	else if (press3)
-		std::cout << "Credits Scene here";
+		currentScene = Scene::CREDITS;
 	else 
 		isPlaying = false;
 }
@@ -141,5 +144,51 @@ void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::ve
 }
 
 void GameManager::Highscore() {
-	std::cout << "Highscore" << std::endl;
+	bool press1;
+	bool keyPressed = false;
+
+	std::cout << " ██░ ██  ██▓  ▄████  ██░ ██   ██████  ▄████▄   ▒█████   ██▀███  ▓█████\n";
+	std::cout << "▓██░ ██▒▓██▒ ██▒ ▀█▒▓██░ ██▒▒██    ▒ ▒██▀ ▀█  ▒██▒  ██▒▓██ ▒ ██▒▓█   ▀ \n";
+	std::cout << "▒██▀▀██░▒██▒▒██░▄▄▄░▒██▀▀██░░ ▓██▄   ▒▓█    ▄ ▒██░  ██▒▓██ ░▄█ ▒▒███   \n";
+	std::cout << "░▓█ ░██ ░██░░▓█  ██▓░▓█ ░██   ▒   ██▒▒▓▓▄ ▄██▒▒██   ██░▒██▀▀█▄  ▒▓█  ▄ \n";
+	std::cout << "░▓█▒░██▓░██░░▒▓███▀▒░▓█▒░██▓▒██████▒▒▒ ▓███▀ ░░ ████▓▒░░██▓ ▒██▒░▒████▒\n";
+	std::cout << " ▒ ░░▒░▒░▓   ░▒   ▒  ▒ ░░▒░▒▒ ▒▓▒ ▒ ░░ ░▒ ▒  ░░ ▒░▒░▒░ ░ ▒▓ ░▒▓░░░ ▒░ ░\n\n";
+	//Highscore stuff
+	std::cout << "Pres 1 to go to menu...";
+	
+	while (!keyPressed) {
+		press1 = GetAsyncKeyState('1') != 0;
+
+		keyPressed = press1;
+	}
+	Sleep(100);
+	system("cls");
+
+	currentScene = Scene::MENU;
+
+}
+void GameManager::Credits() {
+	bool press1;
+	bool keyPressed = false;
+
+	std::cout << " ▄████▄   ██▀███  ▓█████ ▓█████▄  ██▓▄▄▄█████▓  ██████ \n";
+	std::cout << "▒██▀ ▀█  ▓██ ▒ ██▒▓█   ▀ ▒██▀ ██▌▓██▒▓  ██▒ ▓▒▒██    ▒ \n";
+	std::cout << "▒▓█    ▄ ▓██ ░▄█ ▒▒███   ░██   █▌▒██▒▒ ▓██░ ▒░░ ▓██▄   \n";
+	std::cout << "▒▓▓▄ ▄██▒▒██▀▀█▄  ▒▓█  ▄ ░▓█▄   ▌░██░░ ▓██▓ ░   ▒   ██▒\n";
+	std::cout << "▒ ▓███▀ ░░██▓ ▒██▒░▒████▒░▒████▓ ░██░  ▒██▒ ░ ▒██████▒▒\n";
+	std::cout << " ░ ░▒ ▒  ░░ ▒▓ ░▒▓░░░ ▒░ ░ ▒▒▓  ▒ ░▓    ▒ ░░   ▒ ▒▓▒ ▒ ░\n\n";
+	std::cout << "Made by: \n";
+	std::cout << "Roc Allue \n";
+	std::cout << "Aleix Ramirez \n";
+	std::cout << "Pres 1 to go to menu...";
+
+	while (!keyPressed) {
+		press1 = GetAsyncKeyState('1') != 0;
+
+		keyPressed = press1;
+	}
+	Sleep(100);
+	system("cls");
+
+	currentScene = Scene::MENU;
 }
