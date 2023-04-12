@@ -68,12 +68,6 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad)
     }
 }
 
-void Ball::Reset(Vector2 position, Vector2 direction, int damage) {
-    this->position = position;
-    this->direction = direction;
-    this->damage = damage;
-}
-
 
 
 

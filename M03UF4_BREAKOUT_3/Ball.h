@@ -27,7 +27,6 @@ public:
         ConsoleXY(position.x, position.y);
         std::cout << "@";
     }
-    void Reset(Vector2 position, Vector2 direction, int damage); 
 };
 
 
