@@ -22,15 +22,32 @@ void GameManager::Menu() {
 	bool keyPressed = false;
 	bool press1;
 	bool press2;
+	bool press3;
+	bool press0;
 	while (!keyPressed) {
+		std::cout << " ▄▄▄▄    ██▀███  ▓█████ ▄▄▄       ██ ▄█▀ ▒█████   █    ██ ▄▄▄█████▓\n";
+		std::cout << "▓█████▄ ▓██ ▒ ██▒▓█   ▀▒████▄     ██▄█▒ ▒██▒  ██▒ ██  ▓██▒▓  ██▒ ▓▒\n";
+		std::cout << "▒██▒ ▄██▓██ ░▄█ ▒▒███  ▒██  ▀█▄  ▓███▄░ ▒██░  ██▒▓██  ▒██░▒ ▓██░ ▒░\n";
+		std::cout << "▒██░█▀  ▒██▀▀█▄  ▒▓█  ▄░██▄▄▄▄██ ▓██ █▄ ▒██   ██░▓▓█  ░██░░ ▓██▓ ░ \n";
+		std::cout << "░▓█  ▀█▓░██▓ ▒██▒░▒████▒▓█   ▓██▒▒██▒ █▄░ ████▓▒░▒▒█████▓   ▒██▒ ░ \n";
+		std::cout << "░▒▓███▀▒░ ▒▓ ░▒▓░░░ ▒░ ░▒▒   ▓▒█░▒ ▒▒ ▓▒░ ▒░▒░▒░ ░▒▓▒ ▒ ▒   ▒ ░░   \n";
+		std::cout << "▒░▒   ░   ░▒ ░ ▒░ ░ ░  ░ ▒   ▒▒ ░░ ░▒ ▒░  ░ ▒ ▒░ ░░▒░ ░ ░     ░    \n";
+		std::cout << " ░    ░   ░░   ░    ░    ░   ▒   ░ ░░ ░ ░ ░ ░ ▒   ░░░ ░ ░   ░      \n";
+		std::cout << " ░         ░        ░  ░     ░  ░░  ░       ░ ░     ░              \n";
+		std::cout << "      ░                                                            \n";
+		std::cout << "\n\n";
 		std::cout << "Main Menu \n\n";
 		std::cout << "Press 1 to play" << std::endl;
-		std::cout << "Press 2 to exit" << std::endl;
+		std::cout << "Press 2 to play" << std::endl;
+		std::cout << "Press 3 to play" << std::endl;
+		std::cout << "Press 0 to exit" << std::endl;
 		
 		 press1 = GetAsyncKeyState('1') != 0;
 		 press2 = GetAsyncKeyState('2') != 0;
+		 press3 = GetAsyncKeyState('3') != 0;
+		 press0 = GetAsyncKeyState('0') != 0;
 		
-		 keyPressed = press1 || press2;
+		 keyPressed = press1 || press2 || press3 || press0;
 
 		Sleep(sleepTime);
 		system("cls");
@@ -39,6 +56,10 @@ void GameManager::Menu() {
 
 	if (press1)
 		currentScene = Scene::GAMEPLAY;
+	else if (press2)
+		std::cout << "Rannking Scene here";
+	else if (press3)
+		std::cout << "Credits Scene here";
 	else 
 		isPlaying = false;
 }
