@@ -215,4 +215,48 @@ void GameManager::Credits() {
 	currentScene = Scene::MENU;
 }
 
+void saveScore(const std::string& playerName, const Score& score) {
+	std::ofstream file("scores.wcs", std::ios::out | std::ios::binary | std::ios::app);
+	if (file) {
+		// Escribir primero la longitud del nombre del jugador (para poder leerla después)
+		size_t nameLen = playerName.length();
+		file.write(reinterpret_cast<const char*>(&nameLen), sizeof(size_t));
+		// Escribir el nombre del jugador y la puntuación
+		file.write(playerName.c_str(), nameLen);
+		file.write(reinterpret_cast<const char*>(&score), sizeof(Score));
+		file.close();
+	}
+}
+
+void loadScore() {
+	std::ifstream scoreFile("scores.wcs", std::ios::in | std::ios::binary);
+	if (scoreFile) {
+		std::cout << " ----- HIGHSCORES ----- \n" << std::endl;
+		// Leer cada registro
+		while (!scoreFile.eof()) {
+			size_t nameLen;
+			scoreFile.read(reinterpret_cast<char*>(&nameLen), sizeof(size_t));
+			if (scoreFile.eof()) {
+				break;
+			}
+			std::string playerName;
+			playerName.resize(nameLen);
+			scoreFile.read(&playerName[0], nameLen);
+			Score score;
+			scoreFile.read(reinterpret_cast<char*>(&score), sizeof(Score));
+			std::cout << " " << playerName << ": " << score.playerScore << std::endl;
+		}
+		scoreFile.close();
+		std::cout << " " << std::endl;
+		system("pause");
+		system("cls");
+	}
+	else {
+		std::cout << " No existen archivos \n" << std::endl;
+		std::cout << " ";
+		system("pause");
+		system("cls");
+	}
+}
+
 
