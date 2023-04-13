@@ -23,28 +23,121 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
     }
     
     bool hitBrick = false;
-    for (auto& brick : bricks) {
-        if (brick.GetHealth() == 0) {
-            continue; // skip broken bricks
-        }
-        if (brick.GetPosition() == targetPos) {
-            brick.TakeDamage(GetDamage());
-            direction.y *= -1;
-            hitBrick = true;
-            brokenBlocks++;
-            score += 15 + 5 * (brokenBlocks - 1);
-            break;
-        }
-    }
+    //for (auto& brick : bricks) {
+    //    if (brick.GetHealth() == 0) {
+    //        continue; // skip broken bricks
+    //    }
+    //    if (brick.GetPosition() == targetPos) {
+    //        brick.TakeDamage(GetDamage());
+    //        direction.y *= -1;
+    //        hitBrick = true;
+    //        brokenBlocks++;
+    //        score += 15 + 5 * (brokenBlocks - 1);
+    //        break;
+    //    }
+    //}
 
     if (!hitBrick) {
         brokenBlocks = 0; // reset broken blocks count if ball misses a brick
     }
 
-
+    //es bugeixen les colision i no entenc pq fan el contrari del que programo lmao
     for (auto it = bricks.begin(); it != bricks.end(); it++) {
         if (it->GetPosition() == targetPos && it->GetHealth() != 0) {
-            
+            Vector2 brickPosition = it->GetPosition();
+            Brick brickSide = *it;
+            if (direction.x = 0) {
+                direction.y *= -1;
+            }
+            else if (position.x + direction.x == brickPosition.x - 1) {
+                Vector2 brickSidePosition = it->GetPosition();
+                Vector2 brickUpPosition = it->GetPosition();
+                //comprovacio del brick del side
+                bool isDeadBSide = false;
+                bool isDeadBUp = false;
+                for (auto itS = bricks.begin(); it != bricks.end(); it++) {
+                    brickSide = *itS;
+                    brickSidePosition = brickSide.GetPosition();
+                    if (brickSidePosition.x == brickPosition.x - 1 && brickSide.GetHealth() != 0) {
+                        isDeadBSide = false;
+                        break;
+                    }
+                    else {
+                        isDeadBSide = true;
+                        break;
+                    }
+                }
+                //comprovacio del brick de adalt
+                for (auto itS = bricks.begin(); it != bricks.end(); it++) {
+                    brickSide = *itS;
+                    brickSidePosition = brickSide.GetPosition();
+                    if (brickSidePosition.y == brickUpPosition.y - 1 && brickSide.GetHealth() != 0) {
+                        isDeadBUp = false;
+                        break;
+                    }
+                    else {
+                        isDeadBSide = true;
+                        break;
+                    }
+                }
+                //destruir els bricks si no estan morts
+                if (isDeadBSide == false)
+                    brickSide.TakeDamage(GetDamage());
+                if (isDeadBUp == false)
+                    brickSide.TakeDamage(GetDamage());
+                //desvio la direccio
+                direction.x *= -1;
+                direction.y *= -1;
+            }
+            else if (position.x + direction.x == brickPosition.x + 1) {
+                Vector2 brickSidePosition = it->GetPosition();
+                Vector2 brickUpPosition = it->GetPosition();
+                //comprovacio del brick del side
+                bool isDeadBSide = false;
+                bool isDeadBUp = false;
+                for (auto itS = bricks.begin(); it != bricks.end(); it++) {
+                    brickSide = *itS;
+                    brickSidePosition = brickSide.GetPosition();
+                    if (brickSidePosition.x == brickPosition.x + 1 && brickSide.GetHealth() != 0) {
+                        isDeadBSide = false;
+                        break;
+                    }
+                    else {
+                        isDeadBSide = true;
+                        break;
+                    }
+                }
+                //comprovacio del brick de adalt
+                for (auto itS = bricks.begin(); it != bricks.end(); it++) {
+                    brickSide = *itS;
+                    brickSidePosition = brickSide.GetPosition();
+                    if (brickSidePosition.y == brickUpPosition.y - 1 && brickSide.GetHealth() != 0) {
+                        isDeadBUp = false;
+                        break;
+                    }
+                    else{
+                        isDeadBSide = true;
+                        break;
+                    }
+                }
+                //destruir els bricks si no estan morts
+                if (isDeadBSide == false)
+                    brickSide.TakeDamage(GetDamage());
+                if (isDeadBUp == false)
+                    brickSide.TakeDamage(GetDamage());
+                //desvio la direccio
+                direction.x *= -1;
+                direction.y *= -1;
+            }
+            else
+            {
+                direction.x *= -1;
+                direction.y *= -1;
+            }
+
+
+
+
             it->TakeDamage(GetDamage());
             direction.y *= -1;
         }
