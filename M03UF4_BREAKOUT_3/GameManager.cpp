@@ -215,13 +215,15 @@ void GameManager::Credits() {
 }
 
 /*
-std::cout << "Save game?:(y/n)";
+std:: cout << "Save game?:(y/n)";
 std::cin >> save;
 if (save == 'y') {
 	system("cls");
 	saveGame(bottles, move);
+	
 	menu();
 }
+*/
 void chargeScores() {
 
 	size_t readSize;
@@ -259,7 +261,7 @@ void chargeScores() {
 	std::cout << std::endl;
 
 	in.close();
-	
+
 }
 
-*/
+
