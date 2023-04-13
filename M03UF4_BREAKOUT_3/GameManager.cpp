@@ -81,7 +81,7 @@ void GameManager::GamePlay() {
 		if (ball->GetLives() == 0) {
 			system("cls");
 			currentScene = Scene::MENU;
-		
+			saveScore(score);
 			gameplay = false;
 
 		}
@@ -215,48 +215,52 @@ void GameManager::Credits() {
 	currentScene = Scene::MENU;
 }
 
-void saveScore(const std::string& playerName, const Score& score) {
-	std::ofstream file("scores.wcs", std::ios::out | std::ios::binary | std::ios::app);
-	if (file) {
-		// Escribir primero la longitud del nombre del jugador (para poder leerla despu�s)
-		size_t nameLen = playerName.length();
-		file.write(reinterpret_cast<const char*>(&nameLen), sizeof(size_t));
-		// Escribir el nombre del jugador y la puntuaci�n
-		file.write(playerName.c_str(), nameLen);
-		file.write(reinterpret_cast<const char*>(&score), sizeof(Score));
-		file.close();
-	}
+void GameManager::saveScore( int score) {
+	std::string (namePlayer);
+	std::cout << "Qual es tu nombre?\n";
+	std::cin >> namePlayer;
+
+	std::ofstream outfile;
+	outfile.open("scores.bin", std::ios::binary | std::ios::app);
+	size_t size = namePlayer.size();
+	outfile.write(reinterpret_cast<char*> (&namePlayer), sizeof(size_t));
+	outfile.write(namePlayer.c_str(), sizeof(char) * size);
+	outfile.write(reinterpret_cast<char*> (score), sizeof(int));
+
+	outfile.close();
 }
 
-void loadScore() {
-	std::ifstream scoreFile("scores.wcs", std::ios::in | std::ios::binary);
-	if (scoreFile) {
-		std::cout << " ----- HIGHSCORES ----- \n" << std::endl;
-		// Leer cada registro
-		while (!scoreFile.eof()) {
-			size_t nameLen;
-			scoreFile.read(reinterpret_cast<char*>(&nameLen), sizeof(size_t));
-			if (scoreFile.eof()) {
-				break;
-			}
-			std::string playerName;
-			playerName.resize(nameLen);
-			scoreFile.read(&playerName[0], nameLen);
-			Score score;
-			scoreFile.read(reinterpret_cast<char*>(&score), sizeof(Score));
-			std::cout << " " << playerName << ": " << score.playerScore << std::endl;
+void GameManager::loadScore() {
+	std::ifstream in("scores.bin", std::ios::in | std::ios::binary);
+
+	if (!in) {
+		std::cout << "No se puede abrir el archivo" << std::endl;
+		return;
+	}
+
+	while (in) {
+		std::string a;
+		int points;
+		size_t readSize;
+		size_t size = a.size();
+
+		in.read(reinterpret_cast<char*>(&readSize), sizeof(size_t));
+		char* temp = new char[readSize + 1];
+		in.read(temp, readSize);
+		temp[size] = '\0';
+		std::string name = temp;
+		delete[] temp;
+
+
+		in.read(reinterpret_cast<char*>(&points), sizeof(int));
+
+		if (in) {
+			std::cout << "Jugador: " << name << ", Puntuación: " << points << std::endl;
 		}
-		scoreFile.close();
-		std::cout << " " << std::endl;
-		system("pause");
-		system("cls");
 	}
-	else {
-		std::cout << " No existen archivos \n" << std::endl;
-		std::cout << " ";
-		system("pause");
-		system("cls");
-	}
+
+	in.close();
+
 }
 
 
