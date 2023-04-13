@@ -3,10 +3,13 @@
 #include <iostream>
 #include <Windows.h>
 #include <vector>
+#include <string>
 #include "Ball.h"
 #include "Brick.h"
 #include "Pad.h"
 #include "Wall.h"
+
+
 
 
 class GameManager {

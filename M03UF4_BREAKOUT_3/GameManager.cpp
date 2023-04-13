@@ -176,7 +176,10 @@ void GameManager::Highscore() {
 	std::cout << "\n\n";
 	//Highscore stuff
 	std::cout << "Pres 1 to go to menu...";
-
+	
+	std::string playerName;
+	std::cout << "Introduce tu nombre: ";
+	std::getline(std::cin, playerName);
 
 
 	while (!keyPressed) {
@@ -222,51 +225,38 @@ void GameManager::Credits() {
 	currentScene = Scene::MENU;
 }
 
-/*
-std:: cout << "Save game?:(y/n)";
-std::cin >> save;
-if (save == 'y') {
-	system("cls");
-	saveGame(bottles, move);
+
+void saveScore(const std::string& playerName, const Score& score) {
 	
-	menu();
-}
-*/
-
-void GameManager::saveScore(int score) {
-
-	std::string playerName;
-	std::cout << "Enter player name: ";
-	std::cin >> playerName;
-
-	std::ofstream outFile("scores.bin", std::ios::binary | std::ios::app);
-	if (!outFile) {
-		std::cerr << "Error opening scores file" << std::endl;
-		return;
+	std::ofstream file("scores.wcs", std::ios::out | std::ios::binary | std::ios::app);
+	if (file) {
+		ScoreData data;
+		data.score = score;
+		std::strcpy(data.playerName, playerName.c_str());
+		file.write(reinterpret_cast<const char*>(&data), sizeof(ScoreData));
+		file.close();
 	}
-
-	outFile.write(playerName.c_str(), playerName.length() + 1);
-	outFile.write(reinterpret_cast<const char*>(&score), sizeof(score));
-
-	outFile.close();
 }
 
 
-void GameManager::loadScores() {
-	std::ifstream inFile("scores.bin", std::ios::in | std::ios::binary);
-	if (!inFile) {
-		std::cerr << "Error opening scores file" << std::endl;
-		return;
+
+void loadScore() {
+	std::ifstream scoreFile("scores.wcs", std::ios::in | std::ios::binary);
+	if (scoreFile) {
+		ScoreData data;
+		std::cout << " ----- HIGHSCORES ----- \n" << std::endl;
+		while (scoreFile.read(reinterpret_cast<char*>(&data), sizeof(ScoreData))) {
+			std::cout << " " << data.playerName << ": " << data.score.playerScore << std::endl;
+		}
+		scoreFile.close();
+		std::cout << " " << std::endl;
+		system("pause");
+		system("cls");
 	}
-
-	std::string playerName;
-	int score;
-
-	std::cout << "Scores:" << std::endl;
-	while (inFile.read(reinterpret_cast<char*>(&playerName), sizeof(playerName))) {
-		inFile.read(reinterpret_cast<char*>(&score), sizeof(score));
-		std::cout << playerName << ": " << score << std::endl;
+	else {
+		std::cout << " No existen archivos \n" << std::endl;
+		std::cout << " ";
+		system("pause");
+		system("cls");
 	}
-
-	inFile.close();
 }
