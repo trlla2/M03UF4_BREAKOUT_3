@@ -172,7 +172,7 @@ void GameManager::Highscore() {
 	std::cout << " `' `' ' `-| ' ' `-' `-' `-' '   `-' \n";
 	std::cout << "          ,|                         \n";
 	std::cout << "          `'                         \n\n";
-
+	loadScore();
 	std::cout << "\n\n";
 	//Highscore stuff
 	std::cout << "Pres 1 to go to menu...";
