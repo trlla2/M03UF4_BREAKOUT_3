@@ -19,6 +19,7 @@ public:
 	bool isPlaying;
 
 
+
 	GameManager()
 		: currentScene(MENU), isPlaying(true) {}
 	void Update();

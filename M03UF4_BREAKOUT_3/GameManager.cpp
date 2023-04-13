@@ -177,11 +177,6 @@ void GameManager::Highscore() {
 	//Highscore stuff
 	std::cout << "Pres 1 to go to menu...";
 	
-	std::string playerName;
-	std::cout << "Introduce tu nombre: ";
-	std::getline(std::cin, playerName);
-
-
 	while (!keyPressed) {
 		press1 = GetAsyncKeyState('1') != 0;
 
@@ -194,11 +189,6 @@ void GameManager::Highscore() {
 	}
 
 }
-
-
-	
-	
-	
 
 
 void GameManager::Credits() {
@@ -226,37 +216,3 @@ void GameManager::Credits() {
 }
 
 
-void saveScore(const std::string& playerName, const Score& score) {
-	
-	std::ofstream file("scores.wcs", std::ios::out | std::ios::binary | std::ios::app);
-	if (file) {
-		ScoreData data;
-		data.score = score;
-		std::strcpy(data.playerName, playerName.c_str());
-		file.write(reinterpret_cast<const char*>(&data), sizeof(ScoreData));
-		file.close();
-	}
-}
-
-
-
-void loadScore() {
-	std::ifstream scoreFile("scores.wcs", std::ios::in | std::ios::binary);
-	if (scoreFile) {
-		ScoreData data;
-		std::cout << " ----- HIGHSCORES ----- \n" << std::endl;
-		while (scoreFile.read(reinterpret_cast<char*>(&data), sizeof(ScoreData))) {
-			std::cout << " " << data.playerName << ": " << data.score.playerScore << std::endl;
-		}
-		scoreFile.close();
-		std::cout << " " << std::endl;
-		system("pause");
-		system("cls");
-	}
-	else {
-		std::cout << " No existen archivos \n" << std::endl;
-		std::cout << " ";
-		system("pause");
-		system("cls");
-	}
-}
