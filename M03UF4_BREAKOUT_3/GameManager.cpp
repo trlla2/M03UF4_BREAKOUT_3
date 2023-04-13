@@ -216,44 +216,6 @@ if (save == 'y') {
 	menu();
 }
 */
-void chargeScores() {
 
-	size_t readSize;
-	std::string String;
-	int inScore;
-
-	std::ifstream in;
-	in.open("scores.wcs", std::ios::in | std::ios::binary);
-
-	if (!in.is_open()) {
-		std::cout << " ERROR: IS NOT OPEN " << std::endl;
-		in.close();
-		return;
-	}
-
-	std::string line;
-
-	for (int i = 0; i < score; i++) {
-
-		in.read(reinterpret_cast<char*>(&readSize), sizeof(size_t));
-
-		char* temp = new char[readSize + 1];
-		in.read(temp, readSize);
-		temp[readSize] = '\0';
-		String = temp;
-
-		delete[] temp;
-
-		in.read(reinterpret_cast<char*>(&inScore), sizeof(int));
-
-		std::cout << " " << String << ": " << inScore << std::endl;
-
-	}
-
-	std::cout << std::endl;
-
-	in.close();
-
-}
 
 
