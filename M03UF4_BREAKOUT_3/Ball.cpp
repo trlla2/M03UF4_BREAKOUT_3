@@ -61,7 +61,9 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad)
 
     if (targetPos.y >= walls.back().GetPosition().y) {
         
-        delete this;
+        position = Vector2(25 / 2, 15 / 2);
+        direction.x = 0;
+        direction.y = 1;
     }
     else {
         position = position + direction;
