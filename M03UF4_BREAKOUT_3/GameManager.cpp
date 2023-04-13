@@ -81,7 +81,7 @@ void GameManager::GamePlay() {
 		if (ball->GetLives() == 0) {
 			system("cls");
 			currentScene = Scene::MENU;
-			saveScore(ball->GetScore());
+		
 			gameplay = false;
 
 		}
@@ -172,7 +172,7 @@ void GameManager::Highscore() {
 	std::cout << " `' `' ' `-| ' ' `-' `-' `-' '   `-' \n";
 	std::cout << "          ,|                         \n";
 	std::cout << "          `'                         \n\n";
-	loadScores();
+
 	std::cout << "\n\n";
 	//Highscore stuff
 	std::cout << "Pres 1 to go to menu...";
