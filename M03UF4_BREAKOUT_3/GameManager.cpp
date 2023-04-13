@@ -218,10 +218,10 @@ void GameManager::Credits() {
 void saveScore(const std::string& playerName, const Score& score) {
 	std::ofstream file("scores.wcs", std::ios::out | std::ios::binary | std::ios::app);
 	if (file) {
-		// Escribir primero la longitud del nombre del jugador (para poder leerla después)
+		// Escribir primero la longitud del nombre del jugador (para poder leerla despuï¿½s)
 		size_t nameLen = playerName.length();
 		file.write(reinterpret_cast<const char*>(&nameLen), sizeof(size_t));
-		// Escribir el nombre del jugador y la puntuación
+		// Escribir el nombre del jugador y la puntuaciï¿½n
 		file.write(playerName.c_str(), nameLen);
 		file.write(reinterpret_cast<const char*>(&score), sizeof(Score));
 		file.close();
