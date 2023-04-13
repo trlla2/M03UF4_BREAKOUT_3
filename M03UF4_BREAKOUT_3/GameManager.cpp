@@ -12,7 +12,6 @@ void GameManager::Update() {
 		break;
 	case GameManager::HIGHSCORE:
 		Highscore();
-		saveScore(score);
 		break;
 	case GameManager::CREDITS:
 		Credits();
@@ -80,7 +79,11 @@ void GameManager::GamePlay() {
 	while (gameplay) {
 
 		if (ball->GetLives() == 0) {
-			currentScene = Scene::HIGHSCORE;
+			system("cls");
+			currentScene = Scene::MENU;
+			saveScore(ball->GetScore());
+			gameplay = false;
+
 		}
 		else
 		{ 
@@ -169,7 +172,8 @@ void GameManager::Highscore() {
 	std::cout << " `' `' ' `-| ' ' `-' `-' `-' '   `-' \n";
 	std::cout << "          ,|                         \n";
 	std::cout << "          `'                         \n\n";
-
+	loadScores();
+	std::cout << "\n\n";
 	//Highscore stuff
 	std::cout << "Pres 1 to go to menu...";
 
@@ -229,5 +233,40 @@ if (save == 'y') {
 }
 */
 
+void GameManager::saveScore(int score) {
+
+	std::string playerName;
+	std::cout << "Enter player name: ";
+	std::cin >> playerName;
+
+	std::ofstream outFile("scores.bin", std::ios::binary | std::ios::app);
+	if (!outFile) {
+		std::cerr << "Error opening scores file" << std::endl;
+		return;
+	}
+
+	outFile.write(playerName.c_str(), playerName.length() + 1);
+	outFile.write(reinterpret_cast<const char*>(&score), sizeof(score));
+
+	outFile.close();
+}
 
 
+void GameManager::loadScores() {
+	std::ifstream inFile("scores.bin", std::ios::in | std::ios::binary);
+	if (!inFile) {
+		std::cerr << "Error opening scores file" << std::endl;
+		return;
+	}
+
+	std::string playerName;
+	int score;
+
+	std::cout << "Scores:" << std::endl;
+	while (inFile.read(reinterpret_cast<char*>(&playerName), sizeof(playerName))) {
+		inFile.read(reinterpret_cast<char*>(&score), sizeof(score));
+		std::cout << playerName << ": " << score << std::endl;
+	}
+
+	inFile.close();
+}
