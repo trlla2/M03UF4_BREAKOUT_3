@@ -140,6 +140,7 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
     Vector2 padPos = pad->GetPosition();
     int padWidth = pad->GetWidth();
     if (targetPos.y == padPos.y - 1 && targetPos.x >= padPos.x && targetPos.x <= padPos.x + padWidth - 1) {
+        
        
         float sectionWidth = (float)padWidth / 3.0f;
         float ballX = targetPos.x - padPos.x;
@@ -168,10 +169,14 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
     }
 
     if (targetPos.y >= walls.back().GetPosition().y) {
-        
+        if (lives <= 0) {
+            
+        }
+      
         position = Vector2(25 / 2, 15 / 2);
         direction.x = 0;
         direction.y = 1;
+        lives--;
     }
     else {
         position = position + direction;
