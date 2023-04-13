@@ -1,7 +1,8 @@
 #include "Ball.h"
 
-void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad, int score, int brokenBlocks) {
+void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad, int brokenBlocks) {
     Vector2 targetPos = position + direction;
+
 
     for (auto it = walls.begin(); it != walls.end(); it++) {
         if (it->GetPosition() == targetPos) {
@@ -20,6 +21,26 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
             }
         }
     }
+    
+    bool hitBrick = false;
+    for (auto& brick : bricks) {
+        if (brick.GetHealth() == 0) {
+            continue; // skip broken bricks
+        }
+        if (brick.GetPosition() == targetPos) {
+            brick.TakeDamage(GetDamage());
+            direction.y *= -1;
+            hitBrick = true;
+            brokenBlocks++;
+            score += 15 + 5 * (brokenBlocks - 1);
+            break;
+        }
+    }
+
+    if (!hitBrick) {
+        brokenBlocks = 0; // reset broken blocks count if ball misses a brick
+    }
+
 
     for (auto it = bricks.begin(); it != bricks.end(); it++) {
         if (it->GetPosition() == targetPos && it->GetHealth() != 0) {
@@ -59,6 +80,7 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
             direction.y = -1;
             break;
         }
+        score += 5;
     }
 
     if (targetPos.y >= walls.back().GetPosition().y) {

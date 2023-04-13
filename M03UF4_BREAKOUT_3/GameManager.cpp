@@ -94,7 +94,7 @@ void GameManager::GamePlay() {
 			playerPad->SetPosition(Vector2(playerPad->GetPosition().x + 1, playerPad->GetPosition().y));
 		}
 
-		ball->Update(walls, bricks, playerPad, score, brokenBlocks);
+		ball->Update(walls, bricks, playerPad, brokenBlocks);
 
 
 		
@@ -109,9 +109,6 @@ void GameManager::GamePlay() {
 		}
 
 		ball->Render();
-
-		ConsoleXY(20, 20);
-		std::cout << "Puntos: " << 0;
 
 		Sleep(sleepTime);
 		system("cls");
