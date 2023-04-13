@@ -1,6 +1,7 @@
 #include "GameManager.h"
 
 void GameManager::Update() {
+
 	switch (currentScene)
 	{
 	case GameManager::MENU:
@@ -70,6 +71,8 @@ void GameManager::Menu() {
 void GameManager::GamePlay() {
 	int sleepTime = 100;
 	bool gameplay = true;
+	int score = 0;
+	int brokenBlocks = 0;
 
 	Pad* playerPad = nullptr;
 	Ball* ball = nullptr;
@@ -91,7 +94,10 @@ void GameManager::GamePlay() {
 			playerPad->SetPosition(Vector2(playerPad->GetPosition().x + 1, playerPad->GetPosition().y));
 		}
 
-		ball->Update(walls, bricks, playerPad);
+		ball->Update(walls, bricks, playerPad, score, brokenBlocks);
+
+
+		
 		playerPad->Render();
 
 		for (std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++) {
@@ -104,6 +110,9 @@ void GameManager::GamePlay() {
 
 		ball->Render();
 
+		ConsoleXY(20, 20);
+		std::cout << "Puntos: " << 0;
+
 		Sleep(sleepTime);
 		system("cls");
 	}
@@ -112,6 +121,10 @@ void GameManager::GamePlay() {
 
 void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::vector<Wall>& w, std::vector<Brick>& brick) {
 	//PAD
+	
+
+
+
 	*p = new Pad(Vector2(width / 2, height / 2 + height / 4), 3);
 
 	//WALLS
@@ -195,3 +208,5 @@ void GameManager::Credits() {
 
 	currentScene = Scene::MENU;
 }
+
+

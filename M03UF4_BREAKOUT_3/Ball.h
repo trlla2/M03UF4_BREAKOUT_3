@@ -4,6 +4,7 @@
 #include"Pad.h"
 #include"Wall.h"
 #include "Vector2.h"
+
 class Ball {
 private:
     int damage;
@@ -19,7 +20,7 @@ public:
     }
 
     void Bounce(Pad* pad);
-    void Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pads);
+    void Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pads, int score, int brokenBlocks);
     int GetDamage() { return damage; }
     Vector2 GetDirection();
     Vector2 GetPosition();
