@@ -1,5 +1,6 @@
 #include "GameManager.h"
 
+
 int main() {
 	GameManager game;
 
@@ -7,4 +8,6 @@ int main() {
 	{
 		game.Update();
 	}
+
+
 }

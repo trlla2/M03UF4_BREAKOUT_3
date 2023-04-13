@@ -1,4 +1,5 @@
 #pragma once
+#include <fstream>
 #include <iostream>
 #include <Windows.h>
 #include <vector>
@@ -6,6 +7,7 @@
 #include "Brick.h"
 #include "Pad.h"
 #include "Wall.h"
+
 
 class GameManager {
 public:
