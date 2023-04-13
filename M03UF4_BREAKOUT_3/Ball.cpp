@@ -21,8 +21,8 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
             }
         }
     }
-    
-    
+
+
     bool hitBrick = false;
     //Aquest bucle for sustitueix el buqule de abaix que fa les comprovacions ja que dona un error
     for (auto& brick : bricks) {
@@ -65,7 +65,7 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
                         isDeadBSide = false;
                         break;
                     }
-                    
+
                 }
                 //comprovacio del brick de adalt
                 for (auto itS = bricks.begin(); it != bricks.end(); it++) {
@@ -75,7 +75,7 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
                         isDeadBUp = false;
                         break;
                     }
-                    
+
                 }
                 //destruir els bricks si no estan morts
                 if (isDeadBSide == false)
@@ -99,7 +99,7 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
                         isDeadBSide = false;
                         break;
                     }
-                    
+
                 }
                 //comprovacio del brick de adalt
                 for (auto itS = bricks.begin(); it != bricks.end(); it++) {
@@ -109,7 +109,7 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
                         isDeadBUp = false;
                         break;
                     }
-                    
+
                 }
                 //destruir els bricks si no estan morts
                 if (isDeadBSide == false)
@@ -134,32 +134,29 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
         }
     }
 
-
-
- 
     Vector2 padPos = pad->GetPosition();
     int padWidth = pad->GetWidth();
     if (targetPos.y == padPos.y - 1 && targetPos.x >= padPos.x && targetPos.x <= padPos.x + padWidth - 1) {
-        
-       
+
+
         float sectionWidth = (float)padWidth / 3.0f;
         float ballX = targetPos.x - padPos.x;
         float section = std::floor(ballX / sectionWidth);
 
-        
+
         switch ((int)section) {
         case 0:
             direction.x = -1;
             direction.y = -1;
-            break; 
+            break;
         case 1:
             direction.x = 0;
             direction.y = -1;
-            break; 
+            break;
         case 2:
             direction.x = 1;
             direction.y = -1;
-            break; 
+            break;
         default:
             direction.x = 0;
             direction.y = -1;
@@ -170,9 +167,9 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
 
     if (targetPos.y >= walls.back().GetPosition().y) {
         if (lives <= 0) {
-            
+
         }
-      
+
         position = Vector2(25 / 2, 15 / 2);
         direction.x = 0;
         direction.y = 1;
@@ -181,8 +178,50 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad,
     else {
         position = position + direction;
     }
-
 }
+
+void saveScore(int score) {
+
+    std::string playerName;
+    std::cout << "Enter player name: ";
+    std::cin >> playerName;
+
+    std::ofstream outFile("scores.bin", std::ios::binary | std::ios::app);
+    if (!outFile) {
+        std::cerr << "Error opening scores file" << std::endl;
+        return;
+    }
+
+    outFile.write(playerName.c_str(), playerName.length() + 1);
+    outFile.write(reinterpret_cast<const char*>(&score), sizeof(score));
+
+    outFile.close();
+}
+
+
+void loadScores() {
+    std::ifstream inFile("scores.bin", std::ios::binary);
+    if (!inFile) {
+        std::cerr << "Error opening scores file" << std::endl;
+        return;
+    }
+
+    std::string playerName;
+    int score;
+
+    std::cout << "Scores:" << std::endl;
+    while (inFile.read(reinterpret_cast<char*>(&playerName), sizeof(playerName))) {
+        inFile.read(reinterpret_cast<char*>(&score), sizeof(score));
+        std::cout << playerName << ": " << score << std::endl;
+    }
+
+    inFile.close();
+}
+
+
+ 
+
+
 
 
 

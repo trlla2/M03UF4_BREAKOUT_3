@@ -1,9 +1,11 @@
 #pragma once
+#include <fstream>
 #include <vector>
 #include"Brick.h"
 #include"Pad.h"
 #include"Wall.h"
 #include "Vector2.h"
+
 
 class Ball {
 private:

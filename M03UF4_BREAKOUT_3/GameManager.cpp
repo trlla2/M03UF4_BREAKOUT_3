@@ -12,6 +12,7 @@ void GameManager::Update() {
 		break;
 	case GameManager::HIGHSCORE:
 		Highscore();
+		saveScore(score);
 		break;
 	case GameManager::CREDITS:
 		Credits();
@@ -77,37 +78,43 @@ void GameManager::GamePlay() {
 	InitGameplay(25, 20, &playerPad, &ball, walls, bricks);
 
 	while (gameplay) {
-		
-		bool leftPressed = GetAsyncKeyState(VK_LEFT) != 0;
-		bool rightPressed = GetAsyncKeyState(VK_RIGHT) != 0;
 
-		if (leftPressed && playerPad->GetPosition().x > 0) {
-			playerPad->SetPosition(Vector2(playerPad->GetPosition().x - 1, playerPad->GetPosition().y));
+		if (ball->GetLives() == 0) {
+			currentScene = Scene::HIGHSCORE;
 		}
-		
-		if (rightPressed && playerPad->GetPosition().x + playerPad->GetWidth() < 25) {
-			playerPad->SetPosition(Vector2(playerPad->GetPosition().x + 1, playerPad->GetPosition().y));
+		else
+		{ 
+			bool leftPressed = GetAsyncKeyState(VK_LEFT) != 0;
+			bool rightPressed = GetAsyncKeyState(VK_RIGHT) != 0;
+
+			if (leftPressed && playerPad->GetPosition().x > 0) {
+				playerPad->SetPosition(Vector2(playerPad->GetPosition().x - 1, playerPad->GetPosition().y));
+			}
+
+			if (rightPressed && playerPad->GetPosition().x + playerPad->GetWidth() < 25) {
+				playerPad->SetPosition(Vector2(playerPad->GetPosition().x + 1, playerPad->GetPosition().y));
+			}
+
+			ball->Update(walls, bricks, playerPad, brokenBlocks);
+
+
+
+			playerPad->Render();
+
+			for (std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++) {
+				it->Render();
+			}
+
+			for (std::vector<Brick>::iterator it = bricks.begin(); it != bricks.end(); it++) {
+				it->Render();
+			}
+
+			ball->Render();
+
+
+			Sleep(sleepTime);
+			system("cls");
 		}
-
-		ball->Update(walls, bricks, playerPad, brokenBlocks);
-
-
-		
-		playerPad->Render();
-
-		for (std::vector<Wall>::iterator it = walls.begin(); it != walls.end(); it++) {
-			it->Render();
-		}
-
-		for (std::vector<Brick>::iterator it = bricks.begin(); it != bricks.end(); it++) {
-			it->Render();
-		}
-
-		ball->Render();
-
-
-		Sleep(sleepTime);
-		system("cls");
 	}
 }
 
@@ -154,6 +161,7 @@ void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::ve
 void GameManager::Highscore() {
 	bool press1;
 	bool keyPressed = false;
+	int score;
 
 	std::cout << ",-_/,.       .                       \n";
 	std::cout << "' |_|/ . ,-. |-. ,-. ,-. ,-. ,-. ,-. \n";
@@ -165,22 +173,26 @@ void GameManager::Highscore() {
 	//Highscore stuff
 	std::cout << "Pres 1 to go to menu...";
 
-	
+
+
 	while (!keyPressed) {
 		press1 = GetAsyncKeyState('1') != 0;
 
-
 		keyPressed = press1;
 
-		
+		Sleep(100);
+		system("cls");
 
+		currentScene = Scene::MENU;
 	}
-	Sleep(100);
-	system("cls"); 
-
-	currentScene = Scene::MENU;
 
 }
+
+
+	
+	
+	
+
 
 void GameManager::Credits() {
 	bool press1;
