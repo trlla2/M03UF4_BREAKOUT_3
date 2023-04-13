@@ -225,7 +225,8 @@ void GameManager::saveScore( int score) {
 	size_t size = namePlayer.size();
 	outfile.write(reinterpret_cast<char*> (&namePlayer), sizeof(size_t));
 	outfile.write(namePlayer.c_str(), sizeof(char) * size);
-	outfile.write(reinterpret_cast<char*> (score), sizeof(int));
+	outfile.write(reinterpret_cast<char*>(&score), sizeof(int));
+
 
 	outfile.close();
 }
