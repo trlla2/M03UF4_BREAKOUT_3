@@ -23,9 +23,41 @@ void Ball::Update(std::vector<Wall> walls, std::vector<Brick>& bricks, Pad* pad)
 
     for (auto it = bricks.begin(); it != bricks.end(); it++) {
         if (it->GetPosition() == targetPos && it->GetHealth() != 0) {
+            Vector2 bP = it->GetPosition();
+            Brick bS;//poner constructor
+            if (direction.x = 0) {
+                direction.y *= -1;
+            }
+            else if (position.x + direction.x == bP.x -1 ) {
+                Vector2 bPS = it->GetPosition();
+                for (auto itS = bricks.begin(); it != bricks.end(); it++) {
+                    bS = *itS;
+                    bPS = bS.GetPosition();
+                    if (bPS.x == bP.x - 1) {
+                        break;//breack for
+                    }
+                }
+            }
+            else if (position.x + direction.x == bP.x + 1) {
+                Vector2 bPS = it->GetPosition();
+                for (auto itS = bricks.begin(); it != bricks.end(); it++) {
+                    bS = *itS;
+                    bPS = bS.GetPosition();
+                    if (bPS.x == bP.x - 1) {
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                direction.x *= -1;
+                direction.y *= -1;
+            }
+        
+        
             
+        
             it->TakeDamage(GetDamage());
-            direction.y *= -1;
         }
     }
 

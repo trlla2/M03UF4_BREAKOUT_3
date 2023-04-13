@@ -76,7 +76,7 @@ void GameManager::GamePlay() {
 	std::vector<Wall> walls;
 	std::vector<Brick> bricks;
 
-	InitGameplay(25, 15, &playerPad, &ball, walls, bricks);
+	InitGameplay(25, 20, &playerPad, &ball, walls, bricks);
 
 	while (gameplay) {
 		
